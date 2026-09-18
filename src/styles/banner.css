@@ -1,0 +1,53 @@
+.banner-main {
+  background-color:#dd4424;
+  height:150px;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+}
+
+.home-link {
+    width:15%;
+    height:fit-content;
+    margin:1% 5%;
+    font:arial;
+    font-size:30px;
+    display:block;
+    color:black;
+    /* border:1px solid black; */
+    
+}
+
+.home-link a{
+    text-decoration:none;
+    color:black;
+}
+
+.home-link a:hover{
+    text-decoration:none;
+    color:white;
+}
+
+.banner-menu{
+    display:flex;
+    justify-content:space-evenly;
+
+    margin:3% 10%;
+}
+
+.banner-menu-item{
+    width:fit-content;
+    margin:0px 25px;
+}
+
+.nav-link {
+    color:black;
+    text-decoration:none;
+    font:arial;
+    font-size:25px;   
+   
+}
+
+.nav-link:hover{
+    color:white;
+}

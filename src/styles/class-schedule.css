@@ -1,0 +1,60 @@
+.top-row {
+    width:50%;
+    margin:auto;
+    font:arial;
+    font-size:30px;
+    display:flex;
+    justify-content:space-evenly;
+}
+
+.date-div {
+    display:flex;
+    justify-content:center;
+    width:50%;
+}
+
+.calendar-box {
+    display:block;
+    justify-content:space-around;
+    margin:100px auto;
+    width:50%;
+}
+
+.days-labels {
+    display:flex;
+    justify-content:space-around;
+    width:100%;
+    margin-top:1%;
+    font-size:20px;        
+}
+
+.all-days-box {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 equal columns */
+    list-style: none;
+    padding: 0;
+   
+    gap:1px;
+}
+
+
+.one-day {
+    display: flex;
+    justify-content:center;
+    height: 70px;
+    font-size: 18px;
+    color: #2d3748;
+    transition: background-color 0.2s ease;
+    border:1px solid black;
+}
+
+.one-day-text {
+    width:100%;
+    text-align:center;
+}
+.day-title {
+    margin-top:5px;
+    
+}
+
+
