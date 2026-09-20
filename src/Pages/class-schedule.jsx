@@ -2,109 +2,180 @@ import { Outlet } from 'react-router';
 import Banner from '../components/banner';
 import '../styles/class-schedule.css';
 import {useState, useEffect} from 'react';
-import {SCHEDULED_DAYS,MOON_DAYS} from '../constants/scheduled-days';
+import {SCHEDULED_DAYS,SPECIAL_DATES,MOON_DAYS} from '../constants/scheduled-days';
+import {ALL_DATE_INFO,makeDate} from '../constants/all-date-info';
 
 export default function ClassSchedule()
 {
-    const [pageDate, setPageDate]=useState(new Date());
+
     const [allDaysThisMonth, setAllDaysThisMonth]=useState([]);
-    const [localMoonDays, setLocalMoonDays]=useState([]);
+    // const [localMoonDays, setLocalMoonDays]=useState(null);
+    // const [localSpecialDates, setLocalSpecialDates]=useState(null);
+    const [allDateInfo, setAllDateInfo]=useState(ALL_DATE_INFO);
+
 
     useEffect(()=>{
+
         let dayOne = new Date();
         dayOne.setDate(1);
-        setPageDate(dayOne);
+
 
         let newMoonDays=[]
         MOON_DAYS.map((oneMoonDay)=>{
-            newMoonDays.push(new Date(oneMoonDay))
+            newMoonDays.push(makeDate(oneMoonDay));
         })
 
-        setLocalMoonDays(newMoonDays)
+        let newSpecialDates=[]
+        SPECIAL_DATES.map((oneSpecialDay)=>{
+            newSpecialDates.push({
+                date:makeDate(oneSpecialDay.date),
+                title:oneSpecialDay.title
+            })
+        })
+
+        let newScheduledDays=[]
+        SCHEDULED_DAYS.sort(
+            (a, b) =>new Date(a.startDate) - new Date(b.startDate)).map((oneScheduleDay)=>{
+                newScheduledDays.push({
+                    whichDays:oneScheduleDay.whichDays,
+                    title:oneScheduleDay.title,
+                    startDate:makeDate(oneScheduleDay.startDate),
+                })
+            })
+
+        setAllDateInfo({...allDateInfo,
+            ...{
+                pageDate:dayOne,
+                moonDays:newMoonDays,
+                specialDates:newSpecialDates,
+                scheduledDays: newScheduledDays
+            }});
+
     },[])
 
     useEffect(()=>{
-        
-        const IsMoonDay=(thisDay)=>{
+        if (!allDateInfo.isValid()) return;
+        // const IsMoonDay=(thisDay)=>{
+        //     return false
+        //     let returnValue=false;
+        //     theseMoonDays.map((oneMoonDay)=>{
+        //         if (oneMoonDay.getDate()===thisDay) returnValue= true;
+        //     })
+        //     return returnValue;
+        // }
 
-            let returnValue=false;
-            theseMoonDays.map((oneMoonDay)=>{
-                if (oneMoonDay.getDate()===thisDay) returnValue= true;
-            })
-            return returnValue;
+        // let theseDates=[]
+        // localSpecialDates.map((oneSpecialDate)=>{
+        //     if (oneSpecialDate.date.getMonth()===8)
+        //         theseDates.push(oneSpecialDate)
+        // })
+
+        //console.log(theseDates)
+        const GetSpecialDate=(thisDay)=>{
+
+            return null
+            // console.log(localSpecialDates[0].date)
+            // console.log(thisDay.getMonth())
+            
+            //localSpecialDates.map((oneSpecialDate)=>{console.log(oneSpecialDate.date.getMonth())})
+            //let tempArray=localSpecialDates.filter((oneSpecialDate)=>{oneSpecialDate.date.getMonth()===8})  
+            //console.log(tempArray)
+                // // && oneSpecialDate.date.getFullYear()==thisDay.getFullYear()
+                // }))
+            return localSpecialDates.filter(
+                (oneSpecialDate)=>{
+                    oneSpecialDate.date.getMonth()==thisDay.getMonth() &&oneSpecialDate.date.getFullYear()==thisDay.getFullYear()
+                }).find((anotherSpecialDay)=>anotherSpecialDay.date.getDay()===thisDay)
+
         }
 
-        if (pageDate.getDate()!==1) return 
-        let month = pageDate.getMonth();
-        let year= pageDate.getFullYear();
+        // if (allDateInfo.isValid()) return 
+        let month = allDateInfo.currentMonth();
+        let year= allDateInfo.currentYear();
 
-        let lastDate = new Date(pageDate.getFullYear(), pageDate.getMonth()+1,0)
+        let lastDate = allDateInfo.getLastDate()
+
         let theseDays = [];
 
-        for (let i = 0; i < pageDate.getDay(); i++){
-            theseDays.push('');
+        for (let i = 0; i < allDateInfo.pageDate.getDay(); i++){
+            theseDays.push({
+                    day:-1*i-1,
+                    title:''
+                });
         }
         let daysInMonth = lastDate.getDate();
-
-        let startingScheduleObj =   [...SCHEDULED_DAYS.filter((oneSchedule)=>new Date(oneSchedule.startDate)<pageDate)].sort((a, b) =>new Date(b.startDate) - new Date(a.startDate))[0];
-
-        let thisScheduledDays = [...SCHEDULED_DAYS].sort((a, b) =>new Date(a.startDate) - new Date(b.startDate));
-        let firstDate=new Date(startingScheduleObj.startDate)
-
-        let theseSchedules=[startingScheduleObj]
-        thisScheduledDays.map((oneSchedule)=>{
-
-            let thisDate=new Date(oneSchedule.startDate);
-            if (thisDate>firstDate && thisDate<=lastDate)
-                theseSchedules.push(oneSchedule);
-        })
+        let theseScheduledDays = allDateInfo.getTheseScheduledDays();
 
         let index = 0;
-        let theseMoonDays = localMoonDays.filter((oneMoonDay)=>oneMoonDay.getFullYear()===year && oneMoonDay.getMonth()===month);
-        
+        let compareDate=lastDate;
+  
+        try
+        {
+            compareDate=theseScheduledDays[index+1].startDate.dateObj;
+        }catch(err){
+            
+        }
 
-        let compareDate=new Date(theseSchedules[index+1].startDate);
-        for (let i = 0; i < daysInMonth; i++){
-            let thisDate=new Date(year, month, i+1);
+        for (let day = 1; day < (daysInMonth+1); day++){
 
-            if (thisDate>compareDate && index<(theseSchedules.length-1)){
+
+            let thisDate=new Date(year, month,day);
+
+
+            if (thisDate>compareDate && index<(theseScheduledDays.length-1)){
                 index = index+1;
                 
-                if (index<(theseSchedules.length-1)) compareDate=new Date(theseSchedules[index+1].startDate);
+                if (index<(theseScheduledDays.length-1)) compareDate=new Date(theseScheduledDays[index+1].startDate);
             }
-            
-            if (IsMoonDay(i+1)) {           
+
+            let specialDay = allDateInfo.getSpecialDay(month, day, year)
+            if (specialDay!==undefined){
                 theseDays.push({
-                    day:`${i+1}`,
+                    day:`${day}`,
+                    title:specialDay.title
+                });
+            }else if (allDateInfo.isMoonDay(month, day, year)) {
+                theseDays.push({
+                    day:`${day}`,
                     title:'Moon Day'
-                });        
-            } else if (theseSchedules[index].whichDays.includes(daysOfWeek[thisDate.getDay()])) {
-                
+                });
+            }else if (theseScheduledDays[index].whichDays.includes(daysOfWeek[thisDate.getDay()])) {
                 theseDays.push({
-                    day:`${i+1}`,
-                    title:theseSchedules[index].title
+                    day:`${day}`,
+                    title:theseScheduledDays[index].title
                 });
             } else {
                 theseDays.push({
-                    day:`${i+1}`,
+                    day:`${day}`,
                     title:'No Class'
                 });                
-            }
-
+            }                
         }
 
+
+        for (let i =  lastDate.getDay()+1; i < 7; i++){
+            theseDays.push({
+                    day:-10*i-10,
+                    title:''
+                });
+        }        
         setAllDaysThisMonth(theseDays);
-    },[pageDate])
+
+    },[allDateInfo])
 
     const changeMonth=(direction)=>{
-        let nextDate = new Date(pageDate);
+        let nextDate = new Date(allDateInfo.pageDate);
         nextDate.setMonth(nextDate.getMonth()+direction);
-
-        setPageDate(nextDate);
+        setAllDateInfo({
+            ...allDateInfo,
+            ...{pageDate:nextDate},
+        })
     }
 
     const test=()=>{
-        console.log(pageDate.getDay())
+        console.log(allDateInfo.specialDates)
+        console.log(allDateInfo.getSpecialDay(8,6,2026))
+        
     }
         
     const daysOfWeek=[
@@ -132,13 +203,12 @@ export default function ClassSchedule()
                             <img 
                                 src='src/images/left-cheveron.png'
                                 width='50px'
-                                height='50px'/
-                            >
+                                height='50px'/>
                         </div>
                         <div 
                             className='date-div'
                         >
-                            {pageDate.toLocaleString('en-US', { month: 'long', year: 'numeric' })}
+                            {allDateInfo.pageDate.toLocaleString('en-US', { month: 'long', year: 'numeric' })}
                         </div>
                         <div
                             style={{
@@ -163,19 +233,28 @@ export default function ClassSchedule()
                             ))}   
                         </div>
 
-                        <ol className='all-days-box'>
-                            {allDaysThisMonth.map((oneDay, index)=>(
-                                <li
-                                    className='one-day'
-                                    key={index}
-                                >
-                                    <div style={{display:'block'}}>
-                                        <div className='one-day-text'>{oneDay.day}</div>
-                                        <div className='day-title'>{oneDay.title}</div>
-                                    </div>
-                                </li>
-                            ))}
-                        </ol>
+                        {(allDaysThisMonth===null)?<></>:
+                            <ol className='all-days-box'>
+                                {allDaysThisMonth.map((oneDay, index)=>(
+                                    (oneDay.day<0)?
+                                    <li 
+                                        key={oneDay.day}
+                                        className='no-day-box'>
+                                        
+                                    </li>:
+                                    <li
+                                        className='one-day'
+                                        key={index}
+                                    >
+                                        <div style={{display:'block'}}>
+                                            <div className='one-day-text'>{oneDay.day}</div>
+                                            <div className='day-title'>{oneDay.title}</div>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ol>                        
+                        }
+
                     </div>           
                     <button onClick={test}>test</button>
             <Outlet />

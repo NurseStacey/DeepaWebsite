@@ -33,7 +33,7 @@
     grid-template-columns: repeat(7, 1fr); /* 7 equal columns */
     list-style: none;
     padding: 0;
-   
+    /* background-color: black; */
     gap:1px;
 }
 
@@ -44,8 +44,14 @@
     height: 70px;
     font-size: 18px;
     color: #2d3748;
+    background-color: white;
     transition: background-color 0.2s ease;
     border:1px solid black;
+    margin:1px;
+}
+
+.no-day-box {
+    background-color: white;    
 }
 
 .one-day-text {
