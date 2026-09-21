@@ -10,6 +10,7 @@ import AboutPage from './Pages/about.jsx';
 import ClassSchedule from './Pages/class-schedule.jsx';
 import WhatAshtanga from './Pages/what-ashtanga.jsx';
 import NewToAshtanga from './Pages/new-to-ashtanga.jsx';
+import GettingStarted from './Pages/getting-started.jsx';
 import './styles/App.css'
 import './styles/banner.css';
 
@@ -24,6 +25,7 @@ ReactDOM.createRoot(root).render(
       <Route path="/class-schedule" element={<ClassSchedule />} />
       <Route path="/ashtanga" element={<WhatAshtanga />} />
       <Route path="/new-to-ashtanga" element={<NewToAshtanga />} />
+      <Route path="/getting-started" element={<GettingStarted />} />
       
     </Routes>
   </BrowserRouter>,

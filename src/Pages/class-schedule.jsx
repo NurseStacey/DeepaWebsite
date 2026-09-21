@@ -7,12 +7,8 @@ import {ALL_DATE_INFO,makeDate} from '../constants/all-date-info';
 
 export default function ClassSchedule()
 {
-
     const [allDaysThisMonth, setAllDaysThisMonth]=useState([]);
-    // const [localMoonDays, setLocalMoonDays]=useState(null);
-    // const [localSpecialDates, setLocalSpecialDates]=useState(null);
     const [allDateInfo, setAllDateInfo]=useState(ALL_DATE_INFO);
-
 
     useEffect(()=>{
 
@@ -55,41 +51,7 @@ export default function ClassSchedule()
 
     useEffect(()=>{
         if (!allDateInfo.isValid()) return;
-        // const IsMoonDay=(thisDay)=>{
-        //     return false
-        //     let returnValue=false;
-        //     theseMoonDays.map((oneMoonDay)=>{
-        //         if (oneMoonDay.getDate()===thisDay) returnValue= true;
-        //     })
-        //     return returnValue;
-        // }
-
-        // let theseDates=[]
-        // localSpecialDates.map((oneSpecialDate)=>{
-        //     if (oneSpecialDate.date.getMonth()===8)
-        //         theseDates.push(oneSpecialDate)
-        // })
-
-        //console.log(theseDates)
-        const GetSpecialDate=(thisDay)=>{
-
-            return null
-            // console.log(localSpecialDates[0].date)
-            // console.log(thisDay.getMonth())
-            
-            //localSpecialDates.map((oneSpecialDate)=>{console.log(oneSpecialDate.date.getMonth())})
-            //let tempArray=localSpecialDates.filter((oneSpecialDate)=>{oneSpecialDate.date.getMonth()===8})  
-            //console.log(tempArray)
-                // // && oneSpecialDate.date.getFullYear()==thisDay.getFullYear()
-                // }))
-            return localSpecialDates.filter(
-                (oneSpecialDate)=>{
-                    oneSpecialDate.date.getMonth()==thisDay.getMonth() &&oneSpecialDate.date.getFullYear()==thisDay.getFullYear()
-                }).find((anotherSpecialDay)=>anotherSpecialDay.date.getDay()===thisDay)
-
-        }
-
-        // if (allDateInfo.isValid()) return 
+ 
         let month = allDateInfo.currentMonth();
         let year= allDateInfo.currentYear();
 
@@ -117,14 +79,9 @@ export default function ClassSchedule()
         }
 
         for (let day = 1; day < (daysInMonth+1); day++){
-
-
             let thisDate=new Date(year, month,day);
-
-
             if (thisDate>compareDate && index<(theseScheduledDays.length-1)){
                 index = index+1;
-                
                 if (index<(theseScheduledDays.length-1)) compareDate=new Date(theseScheduledDays[index+1].startDate);
             }
 
@@ -151,7 +108,6 @@ export default function ClassSchedule()
                 });                
             }                
         }
-
 
         for (let i =  lastDate.getDay()+1; i < 7; i++){
             theseDays.push({

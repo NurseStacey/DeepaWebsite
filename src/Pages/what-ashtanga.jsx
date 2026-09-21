@@ -6,8 +6,8 @@ export default function WhatAshtanga(){
         <div className='page-style'>
             <Banner/>
             <div className='sub-title '>What Is Ashtanga</div>
-            <div>
-                <img src='src/images/Pattabhi-Jois.jpg' className='wrap-image' width='425px' height='450px'/>
+            <div className='container'>
+                <img src='src/images/Pattabhi-Jois.jpg' className='wrap-image-left' width='425px' height='450px'/>
                 <div className='text-block'>
                     <p>Ashtanga Yoga is a traditional and dynamic system of yoga that combines physical postures, controlled breathing, 
                     focused attention, and disciplined practice. The word “Ashtanga” comes from the Sanskrit words ashta, meaning “eight,” 

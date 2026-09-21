@@ -5,7 +5,8 @@ export default function HomePage(){
     return (
         <div >
             <Banner/>
-            Home Page
+                <div className='sub-title '>Home Page</div>
+            
             <Outlet />
         </div>
     )

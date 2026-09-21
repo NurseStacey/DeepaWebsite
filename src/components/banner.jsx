@@ -22,7 +22,7 @@ export default function Banner(){
                 </NavLink>  
 
                 <NavLink
-                to="/"
+                to="/about"
                 className='nav-link'
                 >
                     <div className='banner-menu-item'>About</div>
@@ -37,16 +37,22 @@ export default function Banner(){
                 </NavLink>       
                 
                 <NavLink
+                    to="/getting-started"
+                    className='nav-link'
+                 >
+                    <div className='banner-menu-item'>Getting Started</div>
+                </NavLink>                   
+                <NavLink
                     to="/ashtanga"
                     className='nav-link'
                  >
                     <div className='banner-menu-item'>What Is Ashtanga</div>
                 </NavLink>                       
                 <NavLink
-                    to="/ashtanga"
+                    to="/new-to-ashtanga"
                     className='nav-link'
                  >
-                    <div className='new-to-ashtanga'>New To Ashtanga</div>
+                    <div className='banner-menu-item'>New To Ashtanga</div>
                 </NavLink>                       
                 
             </div>
