@@ -1,0 +1,40 @@
+.my_button{
+    background-color: darkgreen;
+    color:white;
+    margin:auto;
+    width:fit-content;
+    height:fit-content;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content: center;
+    border:1px  solid  black;
+    border-radius:12px;    
+    cursor:pointer;
+    font:Arial;
+    font-size:20px;
+    padding:0px 10px;
+}
+
+.my_input{
+        display:flex;
+        flex-direction:row;
+        justify-content:space-between;
+        margin:25px 0px;    
+        font-size:30px;
+}
+
+.my_input label{
+    width:40%;
+    margin-left:10%;
+    text-align:Left;
+    color:blue;
+}
+
+.my_input input{
+    width:40%;
+    margin-right:10%;
+    text-align:right;
+    align-content:center;
+    font-size:inherit;
+}
