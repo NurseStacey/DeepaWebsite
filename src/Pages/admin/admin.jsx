@@ -137,95 +137,97 @@ export default function Admin ()
     return (
         <div className='admin-container'>
             <Banner/>
-            <div className='sub-title '>Admin</div>
-            <div className='new-entry-container'>
-                <MyDropdownText
-                    optionsList={Months.map((oneMonth)=>oneMonth.month_name)}
-                    setSelectedOption={setWhichMonth}
-                    selection={whichMonth}
-                    disable={false}
-                    style={oneWidgetStyle}
-                />
-                <MyDropdownText
-                    optionsList={daysOfMonth}
-                    setSelectedOption={setWhichDay}
-                    selection={whichDay}
-                    disable={false}
-                    style={oneWidgetStyle}
-                /> 
-
-                <MyDropdownText
-                    optionsList={yearsAvailable}
-                    setSelectedOption={setWhichYear}
-                    selection={whichYear}
-                    disable={false}
-                    style={oneWidgetStyle}
-                />  
-                <div>
-                    <MyInput
-                        labelText='Title'
-                        handleChange={e=>setOneTitle(e.target.value)}
-                        inputValue={oneTitle}
-                        inputName='title'
-                        inputType='text' 
-                        inputStyle={{display:'flex', justifyContent:'space-around',alignItems:'top',width:'300px', marginBottom:'15px'}}
-
-                        inputFieldStyle={{width:'50%', height:'20px', fontSize:'15px'}}               
+            <div className='main-content'>
+                <div className='sub-title '>Admin</div>
+                <div className='new-entry-container'>
+                    <MyDropdownText
+                        optionsList={Months.map((oneMonth)=>oneMonth.month_name)}
+                        setSelectedOption={setWhichMonth}
+                        selection={whichMonth}
+                        disable={false}
+                        style={oneWidgetStyle}
                     />
-                    <MyInput
-                        labelText='Color'
-                        handleChange={e=>setOneColor(e.target.value)}
-                        inputValue={oneColor}
-                        inputName='title'
-                        inputType='text' 
-                        inputStyle={{display:'flex', justifyContent:'space-around',alignItems:'top',width:'300px'}}
+                    <MyDropdownText
+                        optionsList={daysOfMonth}
+                        setSelectedOption={setWhichDay}
+                        selection={whichDay}
+                        disable={false}
+                        style={oneWidgetStyle}
+                    /> 
 
-                        inputFieldStyle={{width:'50%', height:'20px', fontSize:'15px'}}               
-                    />                    
+                    <MyDropdownText
+                        optionsList={yearsAvailable}
+                        setSelectedOption={setWhichYear}
+                        selection={whichYear}
+                        disable={false}
+                        style={oneWidgetStyle}
+                    />  
+                    <div>
+                        <MyInput
+                            labelText='Title'
+                            handleChange={e=>setOneTitle(e.target.value)}
+                            inputValue={oneTitle}
+                            inputName='title'
+                            inputType='text' 
+                            inputStyle={{display:'flex', justifyContent:'space-around',alignItems:'top',width:'300px', marginBottom:'15px'}}
+
+                            inputFieldStyle={{width:'50%', height:'20px', fontSize:'15px'}}               
+                        />
+                        <MyInput
+                            labelText='Color'
+                            handleChange={e=>setOneColor(e.target.value)}
+                            inputValue={oneColor}
+                            inputName='title'
+                            inputType='text' 
+                            inputStyle={{display:'flex', justifyContent:'space-around',alignItems:'top',width:'300px'}}
+
+                            inputFieldStyle={{width:'50%', height:'20px', fontSize:'15px'}}               
+                        />                    
+                    </div>
+                    <div >
+                        <MyRadio
+                            options={['Repeating', 'One Time','Moon Day', 'Canceled']}
+                            optionsSelected={setOneType}
+                            selection={oneType}
+                            radioStyle={{height:'40px', margin:'0',marginBottom:'20px'}}
+                        />
+
+                        <MyCheckBoxes
+                            options={weekDays}
+                            setSelections={setDaysOfWeek}
+                            selections={daysOfWeek}
+                        />
+                    </div> 
                 </div>
-                <div >
-                    <MyRadio
-                        options={['Repeating', 'One Time','Moon Day', 'Canceled']}
-                        optionsSelected={setOneType}
-                        selection={oneType}
-                        radioStyle={{height:'40px', margin:'0',marginBottom:'20px'}}
+                <div  className='button-container'>
+                    <MyButton
+                        button_function={addNewRecord}
+                        button_text='Add New Record'
                     />
-
-                    <MyCheckBoxes
-                        options={weekDays}
-                        setSelections={setDaysOfWeek}
-                        selections={daysOfWeek}
-                    />
-                </div> 
-            </div>
-            <div  className='button-container'>
-                <MyButton
-                    button_function={addNewRecord}
-                    button_text='Add New Record'
-                />
-                <MyButton
-                    button_function={Logout}
-                    button_text='Logout'
-                />                                 
-            </div>
-            <div className='all-entries-containter'>
-                <div className='sub-title '>Current Calendar Entries</div>
-                <div className='repeating-entry'>
-                    <RepeatingEntry 
-                        currentRepeatingEntry={currentRepeatingEntry}
-                        deleteRecord={deleteRecord}
-                    />
+                    <MyButton
+                        button_function={Logout}
+                        button_text='Logout'
+                    />                                 
                 </div>
-                    {calendarEntries.map((oneCalendarEntry)=>(
-                        <div key={oneCalendarEntry.id}>
-                            <OneCalendarEntry
-                                thisEntry={oneCalendarEntry}
-                                deleteRecord={deleteRecord}
-                            />
-                        </div>
-                    ))}
+                <div className='all-entries-containter'>
+                    <div className='sub-title '>Current Calendar Entries</div>
+                    <div className='repeating-entry'>
+                        <RepeatingEntry 
+                            currentRepeatingEntry={currentRepeatingEntry}
+                            deleteRecord={deleteRecord}
+                        />
+                    </div>
+                        {calendarEntries.map((oneCalendarEntry)=>(
+                            <div key={oneCalendarEntry.id}>
+                                <OneCalendarEntry
+                                    thisEntry={oneCalendarEntry}
+                                    deleteRecord={deleteRecord}
+                                />
+                            </div>
+                        ))}
+                </div>
             </div>
-            <button onClick={test}>test</button>
+
         </div>
     )
 }

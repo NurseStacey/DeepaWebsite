@@ -58,72 +58,73 @@ export default function ClassSchedule()
     return (
         <div style={{margin:0, padding:0}}>
             <Banner/>
-         
-                <div className='sub-title '>Class Schedule</div>
-                   <div className='top-row'>
-                        <div
-                            style={{
-                                cursor:'pointer'
-                            }}
-                            onClick={()=>changeMonth(-1)}
-                        >
-                            <img 
-                                src='src/images/left-cheveron.png'
-                                width='50px'
-                                height='50px'/>
+                <div className='main-content'>
+                    <div className='sub-title '>Class Schedule</div>
+                    <div className='top-row'>
+                            <div
+                                style={{
+                                    cursor:'pointer'
+                                }}
+                                onClick={()=>changeMonth(-1)}
+                            >
+                                <img 
+                                    src='src/images/left-cheveron.png'
+                                    width='50px'
+                                    height='50px'/>
+                            </div>
+                            <div 
+                                className='date-div'
+                            >
+                                {`${thisDate.thisMonthStr}, ${thisDate.year}`}
+                            </div>
+                            <div
+                                style={{
+                                    cursor:'pointer'
+                                }}
+                                onClick={()=>changeMonth(1)}
+                            >
+                                <img 
+                                    src='src/images/right-cheveron.png'
+                                    width='50px'
+                                    height='50px'/>                        
+                            </div>                        
+
                         </div>
+
                         <div 
-                            className='date-div'
+                            className='calendar-box'
                         >
-                            {`${thisDate.thisMonthStr}, ${thisDate.year}`}
-                        </div>
-                        <div
-                            style={{
-                                cursor:'pointer'
-                            }}
-                            onClick={()=>changeMonth(1)}
-                        >
-                            <img 
-                                src='src/images/right-cheveron.png'
-                                width='50px'
-                                height='50px'/>                        
-                        </div>                        
+                            <div className='days-labels'>
+                                {weekDays.map((oneDay)=>(
+                                    <div key={oneDay}>{oneDay}</div>
+                                ))}   
+                            </div>
 
-                    </div>
-
-                    <div 
-                        className='calendar-box'
-                    >
-                        <div className='days-labels'>
-                            {weekDays.map((oneDay)=>(
-                                <div key={oneDay}>{oneDay}</div>
-                            ))}   
-                        </div>
-
-                    
-                        <ol className='all-days-box'>
-                            {allDaysThisMonth.map((oneDay, index)=>(
-                                (oneDay.day<0)?
-                                <li 
-                                    key={oneDay.day}
-                                    className='no-day-box'>
-                                    
-                                </li>:
-                                <li
-                                    className='one-day'
-                                    key={index}
-                                >
-                                    <div style={{display:'block'}}>
-                                        <div className='one-day-text'>{oneDay.day}</div>
-                                        <div className='day-title' style={{color:oneDay.color}}>{oneDay.title}</div>
-                                    </div>
-                                </li>
-                            ))}
-                        </ol>                        
+                        
+                            <ol className='all-days-box'>
+                                {allDaysThisMonth.map((oneDay, index)=>(
+                                    (oneDay.day<0)?
+                                    <li 
+                                        key={oneDay.day}
+                                        className='no-day-box'>
+                                        
+                                    </li>:
+                                    <li
+                                        className='one-day'
+                                        key={index}
+                                    >
+                                        <div style={{display:'block'}}>
+                                            <div className='one-day-text'>{oneDay.day}</div>
+                                            <div className='day-title' style={{color:oneDay.color}}>{oneDay.title}</div>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ol>                        
 
 
-                    </div>           
-                    <button onClick={test}>test</button> 
+                        </div>           
+                        <button onClick={test}>test</button>
+                    </div> 
             <Outlet />
         </div>
     )

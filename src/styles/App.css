@@ -20,6 +20,10 @@ html, body, #root {
   margin:0 100px;
 }
 
+.main-content {
+  padding-top: 125px;
+}
+
 .text-block {
   font:arial;
   font-size:22px;  
