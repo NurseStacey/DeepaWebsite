@@ -91,7 +91,7 @@ export default function Admin ()
         localStorage.setItem(ACCESS_TOKEN, '');
         localStorage.setItem(REFRESH_TOKEN, '');         
         localStorage.setItem(USER_NAME, '');     
-        navigate('/admin')
+        navigate('/')
     }
 
     const setDefaults=()=>{
@@ -115,7 +115,9 @@ export default function Admin ()
         }        
         try{
             const response=await AxiosInstance.get('calendar/get-repeating-calendar/');
-            setCurrentRepeatingEntry(response.data);
+
+            if (response.data.title!=='$$$$')
+                setCurrentRepeatingEntry(response.data);
 
         }catch(err){
             alert('Not able to get records');

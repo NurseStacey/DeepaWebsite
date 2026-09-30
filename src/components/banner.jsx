@@ -1,17 +1,23 @@
 import {WEBSITE_URL} from '../constants/website-constants';
 import { NavLink, Link } from "react-router";
+import {useNavigate} from 'react-router-dom';
 
 export default function Banner(){
+    const navigate=useNavigate();     
     return(
         <div className='banner-main'>
-            <div className='home-link'>
-                <a href={WEBSITE_URL}>
-                    <img 
-                        src='src/images/logo.jpg'
-                        width='50px'
-                        height='50px'/>
-                    <div>Deepa's Ashtanga Yoga</div>
-                </a>
+            <div 
+                style={{cursor:'pointer'}}
+                onClick={()=>navigate('/')}
+                className='home-link'
+            >
+
+                <img 
+                    src='src/images/logo.jpg'
+                    width='50px'
+                    height='50px'/>
+                <div>Deepa's Ashtanga Yoga</div>
+
             </div>
             <div className='banner-menu'>
                 <NavLink

@@ -10,10 +10,10 @@ export default function ClassSchedule()
     const [allDaysThisMonth, setAllDaysThisMonth]=useState([]);
     
     const [thisDate, setThisDate]=useState({
-        month:1,
-        year:3000,
+        month:new Date().getMonth(),
+        year:new Date().getFullYear(),
         thisDate:new Date(),
-        thisMonthStr:'January'
+        thisMonthStr:new Date().toLocaleString('default',{month:'long'})
     })
 
     const test=()=>{
@@ -21,6 +21,7 @@ export default function ClassSchedule()
     }
     const getCalendar = async ()=>{
         try{
+            console.log(thisDate)
             const response = await AxiosInstance.get(`calendar/get-calendar-days/${thisDate['month']}/${thisDate['year']}/`);
             setAllDaysThisMonth(response.data['these_days']);
         }catch(err){
@@ -47,7 +48,7 @@ export default function ClassSchedule()
         
         nextDate.setMonth(nextDate.getMonth()+direction);
         setThisDate({
-            month:nextDate.getMonth()+1,
+            month:nextDate.getMonth(),
             year:nextDate.getFullYear(),
             thisDate:nextDate,
             thisMonthStr:nextDate.toLocaleString('default',{month:'long'})

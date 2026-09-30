@@ -14,19 +14,20 @@ export default function LoginPage ()
     const [password, setPassword]=useState('');
     const handleFormSubmit =async  ()=>{
         let usernameToSend=userName.toLowerCase();
-        console.log(usernameToSend)
-        console.log(password)
+        //console.log(usernameToSend)
+       // console.log(password)
         try{
             const response=await AxiosInstance.post("accounts/token/", {username:usernameToSend, password:password});
             console.log(response)
             localStorage.setItem(ACCESS_TOKEN, response.data.access);
             localStorage.setItem(REFRESH_TOKEN, response.data.refresh);         
-            localStorage.setItem(USER_NAME, usernameToSend);          
+            localStorage.setItem(USER_NAME, usernameToSend);    
+            navigate('/admin')      
             } catch(error){
                 console.log(error)
                 alert('Bad password/username combination')
             }finally{
-                navigate('/admin')
+               
             }
     }
 
