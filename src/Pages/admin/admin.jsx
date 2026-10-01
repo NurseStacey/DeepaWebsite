@@ -41,6 +41,7 @@ export default function Admin ()
     const test=()=>{console.log(currentRepeatingEntry)}
 
     const deleteRecord=async(id)=>{
+  
         try{
             const response=await AxiosInstance.delete(`calendar/delete-entry/${id}/`);
             getRecords();
@@ -118,6 +119,14 @@ export default function Admin ()
 
             if (response.data.title!=='$$$$')
                 setCurrentRepeatingEntry(response.data);
+            else
+                setCurrentRepeatingEntry({
+                    type:'Repeating',
+                    start_date:'2000-01-01',
+                    title:'class',
+                    color:'Black',
+                    which_days_list:[]
+                })
 
         }catch(err){
             alert('Not able to get records');
@@ -212,10 +221,13 @@ export default function Admin ()
                 <div className='all-entries-containter'>
                     <div className='sub-title '>Current Calendar Entries</div>
                     <div className='repeating-entry'>
+                        {(currentRepeatingEntry.which_days_list.length===0)?<></>:
                         <RepeatingEntry 
                             currentRepeatingEntry={currentRepeatingEntry}
                             deleteRecord={deleteRecord}
-                        />
+                        />                        
+                        }
+
                     </div>
                         {calendarEntries.map((oneCalendarEntry)=>(
                             <div key={oneCalendarEntry.id}>

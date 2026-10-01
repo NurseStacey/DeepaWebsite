@@ -9,9 +9,9 @@ export default function RepeatingEntry({
         <div className='repeating-entry-container'>
             <div className='one-repeating-entry-item'>{currentRepeatingEntry.title}</div>
             <div className='one-repeating-entry-item'>{currentRepeatingEntry.start_date}</div>
-            {currentRepeatingEntry.which_days_list.map((oneDay)=>(<div className='one-repeating-entry-item'>{oneDay}</div>))}
+            {currentRepeatingEntry.which_days_list.map((oneDay)=>(<div className='one-repeating-entry-item' key={oneDay}>{oneDay}</div>))}
             <MyButton
-                button_function={()=>deleteRecord(thisEntry.id)}
+                button_function={()=>deleteRecord(currentRepeatingEntry.id)}
                 button_text='Delete'
                 button_style={{margin:'auto 3%'}}
             />                  

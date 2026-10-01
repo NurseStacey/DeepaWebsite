@@ -34,7 +34,8 @@ export default function LoginPage ()
     return (
         <div>
             <Banner/>
-            <div className='sub-title '>Login</div>
+            <div className='main-content'>
+                <div className='sub-title '>Login</div>
 
                 <MyInput
                     labelText='Username'
@@ -56,6 +57,7 @@ export default function LoginPage ()
                     button_function={handleFormSubmit}
                     button_text='Login'
                 />            
+            </div>
         </div>
     )
 }
